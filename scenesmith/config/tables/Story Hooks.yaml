@@ -1,0 +1,14 @@
+name: Story Hooks
+entries:
+  - scene_concept: "A promised delivery is late, and every interested party has a different explanation."
+    tags: [courier, organizer, rival]
+  - scene_concept: "A respected community figure asks for help while concealing who else benefits."
+    tags: [community, leader, secret]
+  - scene_concept: "An old obligation is called in during a public gathering."
+    tags: [social, obligation, witness]
+  - scene_concept: "A disputed record could repair one reputation and ruin another."
+    tags: [archive, scholar, rival]
+  - scene_concept: "Two groups reserve the same venue and neither intends to leave."
+    tags: [faction, organizer, negotiation]
+  - scene_concept: "A newcomer knows a private detail but will not explain its source."
+    tags: [outsider, rumor, mystery]

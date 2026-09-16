@@ -1,0 +1,14 @@
+name: Street Encounters
+entries:
+  - scene_concept: "A neighborhood organizer redirects foot traffic around an unexplained closure."
+    tags: [community, organizer, street]
+  - scene_concept: "A courier searches for a recipient described only by a distinctive keepsake."
+    tags: [courier, mystery, traveler]
+  - scene_concept: "A vendor quietly removes one item whenever a particular customer approaches."
+    tags: [merchant, secret, market]
+  - scene_concept: "Two performers compete for the same corner while their audiences take sides."
+    tags: [artist, rivalry, street]
+  - scene_concept: "A lost notebook contains appointments but no names."
+    tags: [mystery, professional, clue]
+  - scene_concept: "A sudden downpour drives strangers beneath the same narrow awning."
+    tags: [weather, social, traveler]

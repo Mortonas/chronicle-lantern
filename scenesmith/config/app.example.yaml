@@ -1,0 +1,50 @@
+vault_path: null
+vault_name: null
+ripgrep_path: rg.exe
+
+model:
+  provider: null
+  name: null
+  api_key: null
+  endpoint: null
+  params:
+    temperature: 0.7
+    max_tokens: 5000
+
+ui:
+  default_table: Story Hooks.yaml
+  remember_last_inputs: false
+  spinner: true
+
+prompt:
+  template: templates/prompts/scene.j2
+
+prompt_template:
+  rewrite: |-
+    File: {filename}
+    Existing content:
+    ---
+    {existing_content}
+    ---
+    Produce a complete Markdown replacement for the non-image content. Keep headings coherent with the filename. Do not include image syntax.
+
+rewrite:
+  max_bytes: 1000000
+  concurrency: 3
+  anchor_folder: null
+  template_name: Character.j2
+  dry_run_default: true
+  include_subfolders_default: false
+  session_root: app
+  retry_failed_on_resume_default: false
+
+character_schema:
+  affiliation_labels:
+    - Affiliation
+  faction_labels:
+    - Faction
+  relationship_headings:
+    - Relationships
+  default_character_tags:
+    - npc
+    - character

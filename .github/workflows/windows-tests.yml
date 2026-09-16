@@ -1,0 +1,61 @@
+name: Windows tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: windows-latest
+
+    defaults:
+      run:
+        working-directory: scenesmith
+
+    env:
+      QT_QPA_PLATFORM: offscreen
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Import preflight
+        run: python -c "import runpy; ns = runpy.run_path('src/app.py', run_name='scenesmith_preflight'); print('preflight-ok', ns['MainWindow'].__name__, ns['main'].__name__)"
+
+      - name: Policy checks
+        working-directory: .
+        run: |
+          if ($env:GITHUB_BASE_REF) {
+            git fetch --no-tags --depth=1 origin $env:GITHUB_BASE_REF
+            $Changed = @(git diff --name-only "origin/$env:GITHUB_BASE_REF...HEAD")
+            git diff --unified=0 "origin/$env:GITHUB_BASE_REF...HEAD" | Set-Content -Path policy.diff -Encoding utf8
+          } else {
+            $Before = "${{ github.event.before }}"
+            if ($Before -and ($Before -notmatch '^0+$')) {
+              $Changed = @(git diff --name-only "$Before..HEAD")
+              git diff --unified=0 "$Before..HEAD" | Set-Content -Path policy.diff -Encoding utf8
+            } else {
+              $Changed = @(git diff-tree --no-commit-id --name-only -r HEAD)
+              git show --format= --unified=0 HEAD | Set-Content -Path policy.diff -Encoding utf8
+            }
+          }
+          python scenesmith/tools/check_dependency_review.py @Changed
+          python scenesmith/tools/check_schema_version_bump.py --diff-file policy.diff @Changed
+
+      - name: Run tests
+        run: |
+          $BaseTemp = Join-Path $env:TEMP "scenesmith-pytest-$PID"
+          python -m pytest --basetemp "$BaseTemp"

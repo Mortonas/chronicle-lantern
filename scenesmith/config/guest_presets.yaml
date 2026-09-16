@@ -1,0 +1,25 @@
+display_names: {}
+
+presets:
+  Community Gathering:
+    choose_from: [community]
+    eligible_tags: [community]
+    prefer: [organizer, neighbor]
+
+  Professional Reception:
+    choose_from: [professional]
+    eligible_tags: [professional]
+    prefer: [leader, specialist]
+
+  Night Market:
+    choose_from: [merchant, artist, traveler, local]
+    prefer: [night-market]
+
+  Private Salon:
+    must_have: [invited]
+    choose_from: [scholar, patron, artist]
+    exclude: [uninvited]
+
+  Open Social:
+    choose_from: [npc, character]
+    prefer: [social]
